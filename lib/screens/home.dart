@@ -45,7 +45,7 @@ class _HomeState extends State {
     var weatherFuture = (await ApiService().getWeather());
     setState(() {
       weatherData = weatherFuture!;
-      // print("from home.dart :${this.weatherData.region.toString()}");
+      print("from home.dart :${this.weatherData.nextDays?[0].day.toString()}");
     });
     // print(weatherData);
     // Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
