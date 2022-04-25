@@ -121,6 +121,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
                 curve: const Interval((1 / count) * 3, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController,
+        weatherData: widget.weatherData,
       ),
     );
 

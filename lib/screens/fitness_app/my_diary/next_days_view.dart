@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_my_own_first_app/models/weather_model.dart';
 import 'package:flutter_my_own_first_app/screens/fitness_app/models/next_days_list_data.dart';
 
 import '../fitness_app_theme.dart';
@@ -8,11 +9,13 @@ class NextDaysView extends StatefulWidget {
   const NextDaysView(
       {required this.mainScreenAnimationController,
       required this.mainScreenAnimation,
-      Key? key})
+      Key? key,
+      this.weatherData})
       : super(key: key);
 
   final AnimationController mainScreenAnimationController;
   final Animation<double> mainScreenAnimation;
+  final Weather? weatherData;
 
   @override
   _NextDaysViewState createState() => _NextDaysViewState();
@@ -70,10 +73,10 @@ class _NextDaysViewState extends State<NextDaysView>
                   animationController.forward();
 
                   return MealsView(
-                    nextDaysData: nextDaysData[index],
-                    animation: animation,
-                    animationController: animationController,
-                  );
+                      nextDaysData: nextDaysData[index],
+                      animation: animation,
+                      animationController: animationController,
+                      nextDay: widget.weatherData!.nextDays![index]);
                 },
               ),
             ),
@@ -89,15 +92,20 @@ class MealsView extends StatelessWidget {
       {required this.nextDaysData,
       required this.animationController,
       required this.animation,
+      this.nextDay,
       Key? key})
       : super(key: key);
 
   final NextDaysData nextDaysData;
   final AnimationController animationController;
   final Animation<double> animation;
+  final NextDay? nextDay;
 
   @override
   Widget build(BuildContext context) {
+    // print("from next days view, meals view : ${nextDay!.day.toString()}");
+    // print("from next days view, meals view : ${nextDay!.iconURL.toString()}");
+    // print("from next days view, meals view nextdaydata : ${nextDaysData}");
     return AnimatedBuilder(
       animation: animationController,
       builder: (_, __) {
@@ -144,12 +152,12 @@ class MealsView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              nextDaysData.titleTxt,
+                              nextDay!.day.toString(),
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontFamily: FitnessAppTheme.fontName,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: 15,
                                 letterSpacing: 0.2,
                                 color: FitnessAppTheme.white,
                               ),
@@ -161,73 +169,52 @@ class MealsView extends StatelessWidget {
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
-                                      nextDaysData.meals.join('\n'),
-                                      style: const TextStyle(
-                                        fontFamily: FitnessAppTheme.fontName,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 10,
-                                        letterSpacing: 0.2,
-                                        color: FitnessAppTheme.white,
+                                    Expanded(
+                                      child: Text(
+                                        nextDay!.comment.toString(),
+                                        // nextDaysData.meals.join('\n'),
+                                        style: const TextStyle(
+                                          fontFamily: FitnessAppTheme.fontName,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 10,
+                                          letterSpacing: 0.2,
+                                          color: FitnessAppTheme.white,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                            if (nextDaysData.kcal != 0)
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    nextDaysData.kcal.toString(),
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Text(
+                                  nextDay!.maxTemp!.c.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontFamily: FitnessAppTheme.fontName,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 24,
+                                    letterSpacing: 0.2,
+                                    color: FitnessAppTheme.white,
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 4, bottom: 3),
+                                  child: Text(
+                                    " \u2103",
+                                    style: TextStyle(
                                       fontFamily: FitnessAppTheme.fontName,
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 24,
+                                      fontSize: 10,
                                       letterSpacing: 0.2,
                                       color: FitnessAppTheme.white,
                                     ),
                                   ),
-                                  const Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 4, bottom: 3),
-                                    child: Text(
-                                      'kcal',
-                                      style: TextStyle(
-                                        fontFamily: FitnessAppTheme.fontName,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 10,
-                                        letterSpacing: 0.2,
-                                        color: FitnessAppTheme.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            else
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: FitnessAppTheme.nearlyWhite,
-                                  shape: BoxShape.circle,
-                                  boxShadow: <BoxShadow>[
-                                    BoxShadow(
-                                        color: FitnessAppTheme.nearlyBlack
-                                            .withOpacity(0.4),
-                                        offset: const Offset(8.0, 8.0),
-                                        blurRadius: 8.0),
-                                  ],
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: Icon(
-                                    Icons.add,
-                                    color: nextDaysData.endColor,
-                                    size: 24,
-                                  ),
-                                ),
-                              ),
+                              ],
+                            )
                           ],
                         ),
                       ),
@@ -251,7 +238,7 @@ class MealsView extends StatelessWidget {
                     child: SizedBox(
                       width: 80,
                       height: 80,
-                      child: Image.asset(nextDaysData.imagePath),
+                      child: Image.network(nextDay!.iconURL.toString()),
                     ),
                   )
                 ],

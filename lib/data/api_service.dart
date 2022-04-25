@@ -9,7 +9,7 @@ class ApiService {
       var response = await http.get(url);
       if (response.statusCode == 200) {
         Weather _model = weatherFromJson(response.body);
-        // print("_model: ${_model.region}");
+        print("api services _model: ${_model.region}");
         // print("_model: ${_model.currentConditions?.dayhour.toString()}");
 
         return _model;

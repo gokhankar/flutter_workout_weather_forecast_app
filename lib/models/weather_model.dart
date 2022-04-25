@@ -119,30 +119,32 @@ class NextDay {
   NextDay({
     this.day,
     this.comment,
+    this.iconUrl,
     this.maxTemp,
     this.minTemp,
-    this.iconUrl,
   });
 
   String? day;
   String? comment;
+  String? iconUrl;
   Temp? maxTemp;
   Temp? minTemp;
-  String? iconUrl;
 
   factory NextDay.fromJson(Map<String, dynamic> json) => NextDay(
         day: json["day"],
         comment: json["comment"],
+        iconUrl: json["iconURL"],
         maxTemp: Temp.fromJson(json["max_temp"]),
         minTemp: Temp.fromJson(json["min_temp"]),
-        iconUrl: json["iconURL"],
       );
+
+  get iconURL => this.iconUrl;
 
   Map<String, dynamic> toJson() => {
         "day": day,
         "comment": comment,
+        "iconURL": iconUrl,
         "max_temp": maxTemp?.toJson(),
         "min_temp": minTemp?.toJson(),
-        "iconURL": iconUrl,
       };
 }

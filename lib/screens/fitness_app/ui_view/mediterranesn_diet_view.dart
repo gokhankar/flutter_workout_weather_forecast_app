@@ -7,7 +7,7 @@ import '../fitness_app_theme.dart';
 
 class MediterranesnDietView extends StatelessWidget {
   // Weather weatherData = Weather(region: "İstanbulz");
-  late Weather weatherData;
+  final Weather weatherData;
   MediterranesnDietView(
       {required this.animationController,
       required this.animation,
@@ -107,7 +107,7 @@ class MediterranesnDietView extends StatelessWidget {
                                                   width: 28,
                                                   height: 28,
                                                   child: Icon(
-                                                    Icons.access_time_filled,
+                                                    Icons.info_outline,
                                                     color: Colors.green,
                                                     size: 20.0,
                                                   ),
