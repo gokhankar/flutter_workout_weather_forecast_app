@@ -3,6 +3,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_my_own_first_app/data/api_service.dart';
 import 'package:flutter_my_own_first_app/models/weather_model.dart';
 import 'package:flutter_my_own_first_app/screens/fitness_app/fitness_app_home_screen.dart';
+import 'package:flutter_my_own_first_app/widgets/rounded_text_field.dart';
+// import 'package:flutter_my_own_first_app/screens/autocomplete_textfield_screen.dart';
+import 'package:flutter_my_own_first_app/widgets/autocomplete_basic.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -35,7 +38,16 @@ class _HomeState extends State {
       bottom: false,
       child: weatherData.region == ""
           ? Center(
-              child: Text("Loading"),
+              child: Column(
+                children: const [
+                  RoundedTextField(
+                    cursorColor: Colors.amber,
+                    hintText: "Type your location",
+                  ),
+                  AutocompleteBasic()
+                  // FirstPageState()
+                ],
+              ),
             )
           : FitnessAppHomeScreen(weatherData: weatherData),
     ));
