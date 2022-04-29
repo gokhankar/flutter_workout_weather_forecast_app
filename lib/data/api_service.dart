@@ -3,9 +3,9 @@ import 'package:flutter_my_own_first_app/models/weather_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  Future<Weather?> getWeather() async {
+  Future<Weather?> getWeather(city) async {
     try {
-      var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.test);
+      var url = Uri.parse(ApiConstants.baseUrl + city);
       var response = await http.get(url);
       if (response.statusCode == 200) {
         Weather _model = weatherFromJson(response.body);
@@ -21,6 +21,6 @@ class ApiService {
   }
 
   get weatherData {
-    getWeather();
+    // getWeather(city);
   }
 }

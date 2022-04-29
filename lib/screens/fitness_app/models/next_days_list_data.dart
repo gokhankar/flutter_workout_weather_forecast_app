@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class NextDaysData {
   NextDaysData({
-    required this.meals,
+    this.meals,
     this.imagePath = '',
     this.titleTxt = '',
     this.startColor = Colors.grey,
@@ -10,71 +10,71 @@ class NextDaysData {
     this.kcal = 0,
   });
 
-  String imagePath;
-  String titleTxt;
+  String? imagePath;
+  String? titleTxt;
   Color startColor;
   Color endColor;
-  List<String> meals;
+  List<String>? meals;
   int kcal;
 
   static List<NextDaysData> tabIconsList = <NextDaysData>[
     NextDaysData(
-      imagePath: 'assets/fitness_app/breakfast.png',
-      titleTxt: 'Breakfast',
-      kcal: 525,
-      meals: <String>['Bread,', 'Peanut butter,', 'Apple'],
+      // imagePath: 'assets/fitness_app/breakfast.png',
+      // titleTxt: 'Breakfast',
+      // kcal: 525,
+      // meals: <String>['Bread,', 'Peanut butter,', 'Apple'],
       startColor: const Color(0xFFFA7D82),
       endColor: const Color(0xFFFFB295),
     ),
     NextDaysData(
-      imagePath: 'assets/fitness_app/lunch.png',
-      titleTxt: 'Lunch',
-      kcal: 602,
+      // imagePath: 'assets/fitness_app/lunch.png',
+      // titleTxt: 'Lunch',
+      // kcal: 602,
       meals: <String>['Salmon,', 'Mixed veggies,', 'Avocado'],
       startColor: const Color(0xFF738AE6),
       endColor: const Color(0xFF5C5EDD),
     ),
     NextDaysData(
-      imagePath: 'assets/fitness_app/snack.png',
-      titleTxt: 'Snack',
-      meals: <String>['Recommend:', '800 kcal'],
+      // imagePath: 'assets/fitness_app/snack.png',
+      // titleTxt: 'Snack',
+      // meals: <String>['Recommend:', '800 kcal'],
       startColor: const Color(0xFFFE95B6),
       endColor: const Color(0xFFFF5287),
     ),
     NextDaysData(
-      imagePath: 'assets/fitness_app/dinner.png',
-      titleTxt: 'Dinner',
-      meals: <String>['Recommend:', '703 kcal'],
+      // imagePath: 'assets/fitness_app/dinner.png',
+      // titleTxt: 'Dinner',
+      // meals: <String>['Recommend:', '703 kcal'],
       startColor: const Color(0xFF6F72CA),
       endColor: const Color(0xFF1E1466),
     ),
     NextDaysData(
-      imagePath: 'assets/fitness_app/breakfast.png',
-      titleTxt: 'Breakfast',
-      kcal: 525,
+      // imagePath: 'assets/fitness_app/breakfast.png',
+      // titleTxt: 'Breakfast',
+      // kcal: 525,
       meals: <String>['Bread,', 'Peanut butter,', 'Apple'],
       startColor: const Color(0xFFFA7D82),
       endColor: const Color(0xFFFFB295),
     ),
     NextDaysData(
-      imagePath: 'assets/fitness_app/lunch.png',
-      titleTxt: 'Lunch',
-      kcal: 602,
+      // imagePath: 'assets/fitness_app/lunch.png',
+      // titleTxt: 'Lunch',
+      // kcal: 602,
       meals: <String>['Salmon,', 'Mixed veggies,', 'Avocado'],
       startColor: const Color(0xFF738AE6),
       endColor: const Color(0xFF5C5EDD),
     ),
     NextDaysData(
-      imagePath: 'assets/fitness_app/snack.png',
-      titleTxt: 'Snack',
-      meals: <String>['Recommend:', '800 kcal'],
+      // imagePath: 'assets/fitness_app/snack.png',
+      // titleTxt: 'Snack',
+      // meals: <String>['Recommend:', '800 kcal'],
       startColor: const Color(0xFFFE95B6),
       endColor: const Color(0xFFFF5287),
     ),
     NextDaysData(
-      imagePath: 'assets/fitness_app/dinner.png',
-      titleTxt: 'Dinner',
-      meals: <String>['Recommend:', '703 kcal'],
+      // imagePath: 'assets/fitness_app/dinner.png',
+      // titleTxt: 'Dinner',
+      // meals: <String>['Recommend:', '703 kcal'],
       startColor: const Color(0xFF6F72CA),
       endColor: const Color(0xFF1E1466),
     ),

@@ -1,28 +1,107 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_my_own_first_app/data/cities.dart';
+import 'package:flutter_my_own_first_app/data/city_instances.dart';
+import 'package:flutter_my_own_first_app/models/city.dart';
 
-class AutocompleteBasic extends StatelessWidget {
-  const AutocompleteBasic({Key? key}) : super(key: key);
+import '../models/weather_model.dart';
 
-  static final List<String> _kOptions = cities;
+class AutoComplete extends StatefulWidget {
+  final Function(dynamic selection) notifyParent;
+  const AutoComplete({Key? key, required this.notifyParent}) : super(key: key);
 
+  get weatherData => this.weatherData;
+  @override
+  State<StatefulWidget> createState() => _AutoCompleteState();
+}
+
+class _AutoCompleteState extends State<AutoComplete> {
   @override
   Widget build(BuildContext context) {
-    print(_kOptions);
-    return Autocomplete<String>(
-      optionsBuilder: (TextEditingValue textEditingValue) {
-        // print(textEditingValue.text);
-        var newText = textEditingValue.text.toLowerCase();
-        if (textEditingValue.text == '') {
-          return const Iterable<String>.empty();
-        }
-        return _kOptions.where((String option) {
-          return option.contains(textEditingValue.text.toLowerCase());
-        });
-      },
-      onSelected: (String selection) {
-        debugPrint('You just selected $selection');
-      },
+    return Padding(
+      padding: EdgeInsets.all(15.0),
+      child: Autocomplete<City>(
+        optionsBuilder: (TextEditingValue textEditingValue) {
+          return cityOptions
+              .where((City city) => city.name
+                  .toLowerCase()
+                  .startsWith(textEditingValue.text.toLowerCase()))
+              .toList();
+        },
+        displayStringForOption: (City option) => option.name,
+        fieldViewBuilder: (BuildContext context,
+            TextEditingController fieldTextEditingController,
+            FocusNode fieldFocusNode,
+            VoidCallback onFieldSubmitted) {
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            // width: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(29),
+            ),
+            child: TextField(
+              controller: fieldTextEditingController,
+              focusNode: fieldFocusNode,
+              decoration: InputDecoration(
+                icon: Icon(
+                  Icons.location_on,
+                  color: Colors.blue.shade400,
+                ),
+                // suffixIcon: IconButton(
+                //     icon: Icon(Icons.send),
+                //     color: Colors.blue.shade400,
+                //     onPressed: () => {
+                //           // print("from autocomplete ${fieldTextEditingController.selection}"),
+                //           // setState(() {
+                //           //   widget.notifyParent(
+                //           //       fieldTextEditingController.value);
+                //           // })
+                //         }),
+                hintText: "Type your location",
+                border: InputBorder.none,
+              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          );
+        },
+        onSelected: (City selection) {
+          print('Selected: ${selection.eng}');
+          setState(() {
+            widget.notifyParent(selection.eng);
+          });
+        },
+        optionsViewBuilder: (BuildContext context,
+            AutocompleteOnSelected<City> onSelected, Iterable<City> options) {
+          return Material(
+            // color: Colors.blue.shade200,
+            // borderRadius: BorderRadius.circular(29),
+            child: Container(
+              // height: 250,
+              // width: 100,
+              color: Colors.grey.shade200,
+              margin: const EdgeInsets.fromLTRB(20.0, 10.0, 100.0, 10.0),
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: ListView.builder(
+                padding: const EdgeInsets.all(20.0),
+                itemCount: options.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final City option = options.elementAt(index);
+
+                  return GestureDetector(
+                    onTap: () {
+                      onSelected(option);
+                    },
+                    child: ListTile(
+                      title: Text(option.name,
+                          style: const TextStyle(color: Colors.black)),
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
