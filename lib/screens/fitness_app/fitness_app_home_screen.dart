@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_my_own_first_app/screens/home.dart';
 
 import '../../models/weather_model.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
@@ -9,8 +10,11 @@ import 'training/training_screen.dart';
 
 class FitnessAppHomeScreen extends StatefulWidget {
   late Weather weatherData;
+  final Function(dynamic selection) changeisWeatherDataReady;
+
   // Weather weatherData = Weather(region: "İstanbulx");
-  FitnessAppHomeScreen({required this.weatherData});
+  FitnessAppHomeScreen(
+      {required this.weatherData, required this.changeisWeatherDataReady});
 
   @override
   _FitnessAppHomeScreenState createState() => _FitnessAppHomeScreenState();
@@ -88,7 +92,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
           tabIconsList: tabIconsList,
           addClick: () {},
           changeIndex: (int index) {
-            if (index == 0 || index == 2) {
+            if (index == 0) {
               animationController.reverse().then<dynamic>((_) {
                 if (mounted) {
                   setState(() {
@@ -99,7 +103,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                 }
                 return;
               });
-            } else if (index == 1 || index == 3) {
+            } else if (index == 1) {
               animationController.reverse().then<dynamic>((_) {
                 if (mounted) {
                   setState(() {
@@ -109,8 +113,18 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                 }
                 return;
               });
+            } else if (index == 2) {
+              animationController.reverse().then<dynamic>((_) {
+                if (mounted) {
+                  setState(() {
+                    tabBody = Home();
+                  });
+                }
+                return;
+              });
             }
           },
+          changeisWeatherDataReady: widget.changeisWeatherDataReady,
         ),
       ],
     );

@@ -6,16 +6,18 @@ import '../fitness_app_theme.dart';
 import '../models/tab_icon_data.dart';
 
 class BottomBarView extends StatefulWidget {
-  const BottomBarView(
+  BottomBarView(
       {required this.tabIconsList,
       required this.changeIndex,
       required this.addClick,
+      required this.changeisWeatherDataReady,
       Key? key})
       : super(key: key);
 
   final List<TabIconData> tabIconsList;
   final Function(int index) changeIndex;
   final Function() addClick;
+  final Function(dynamic selection) changeisWeatherDataReady;
 
   @override
   _BottomBarViewState createState() => _BottomBarViewState();
@@ -173,6 +175,13 @@ class _BottomBarViewState extends State<BottomBarView>
                           focusColor: Colors.transparent,
                           onTap: () {
                             widget.addClick();
+                            setState(() {
+                              widget.changeisWeatherDataReady(false);
+                            });
+                            // setState(() {
+                            //   widget.isWeatherDataReady = false;
+                            // });
+                            // print("ontap :${widget.isWeatherDataReady}");
                           },
                           child: const Icon(
                             Icons.add,

@@ -39,7 +39,10 @@ class _HomeState extends State {
                         textAlign: TextAlign.center,
                       ),
                     )
-                  : FitnessAppHomeScreen(weatherData: weatherData))
+                  : FitnessAppHomeScreen(
+                      weatherData: weatherData,
+                      changeisWeatherDataReady: changeisWeatherDataReady,
+                    ))
               : Column(
                   children: [
                     const SizedBox(height: 100),
@@ -70,6 +73,15 @@ class _HomeState extends State {
       // print("from setstate2  : ${weatherData.region}");
       getWeatherData(childvalue);
       isLoading = true;
+    });
+  }
+
+  void changeisWeatherDataReady(dynamic childvalue) {
+    setState(() {
+      isLoading = false;
+      isWeatherDataReady = false;
+      print("home changeisWeatherDataReady $isWeatherDataReady ");
+      print("home changeisWeatherDataReady2 $isLoading ");
     });
   }
 }
