@@ -51,7 +51,7 @@ class RunningView extends StatelessWidget {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(8.0)),
                                 child: SizedBox(
-                                  height: 74,
+                                  height: 100,
                                   child: AspectRatio(
                                     aspectRatio: 1.714,
                                     child: Image.asset(
@@ -66,12 +66,12 @@ class RunningView extends StatelessWidget {
                                     children: const <Widget>[
                                       Padding(
                                         padding: EdgeInsets.only(
-                                          left: 100,
+                                          left: 130,
                                           right: 16,
-                                          top: 16,
+                                          top: 30,
                                         ),
                                         child: Text(
-                                          "You're doing great!",
+                                          "Trying to do my best!",
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontFamily:
@@ -88,13 +88,13 @@ class RunningView extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                      left: 100,
+                                      left: 130,
                                       bottom: 12,
-                                      top: 4,
+                                      top: 8,
                                       right: 16,
                                     ),
                                     child: Text(
-                                      'Keep it up\nand stick to your plan!',
+                                      'Passionate to learn new technologies, and design approaches. ',
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         fontFamily: FitnessAppTheme.fontName,
@@ -113,7 +113,7 @@ class RunningView extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: -16,
+                        top: -6,
                         left: 0,
                         child: SizedBox(
                           width: 110,

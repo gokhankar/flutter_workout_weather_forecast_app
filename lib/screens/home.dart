@@ -3,6 +3,7 @@ import 'package:flutter_my_own_first_app/data/api_service.dart';
 import 'package:flutter_my_own_first_app/models/weather_model.dart';
 import 'package:flutter_my_own_first_app/screens/fitness_app/fitness_app_home_screen.dart';
 import 'package:flutter_my_own_first_app/widgets/autocomplete_basic.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State {
   Weather weatherData = Weather(region: "");
+  late FToast fToast;
   var isLoading = false;
   var isWeatherDataReady = false;
   @override
@@ -23,7 +25,27 @@ class _HomeState extends State {
     // weatherData.region = "İstanbulx";
     // getWeatherData();
     // print(weatherData.region);
+    fToast = FToast();
+    fToast.init(context);
   }
+
+  Widget toast = Container(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25.0),
+      color: Colors.grey,
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.check),
+        SizedBox(
+          width: 12.0,
+        ),
+        Text("Server error"),
+      ],
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +81,18 @@ class _HomeState extends State {
 
   void getWeatherData(city) async {
     var weatherFuture = (await ApiService().getWeather(city));
-    setState(() {
-      weatherData = weatherFuture ?? Weather(region: "istanbul");
-      // print("from home.dart :${this.weatherData.nextDays?[0].day.toString()}");
-    });
-    isWeatherDataReady = true;
+    if (weatherFuture != null) {
+      setState(() {
+        weatherData = weatherFuture;
+        // weatherData = weatherFuture ?? Weather(region: "istanbul");
+        // print("from home.dart :${this.weatherData.nextDays?[0].day.toString()}");
+      });
+      isWeatherDataReady = true;
+    } else {
+      print("home getWeatherData else: ");
+      isWeatherDataReady = false;
+      _showToast();
+    }
   }
 
   void refresh(dynamic childvalue) {
@@ -83,5 +112,13 @@ class _HomeState extends State {
       print("home changeisWeatherDataReady $isWeatherDataReady ");
       print("home changeisWeatherDataReady2 $isLoading ");
     });
+  }
+
+  _showToast() {
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2),
+    );
   }
 }

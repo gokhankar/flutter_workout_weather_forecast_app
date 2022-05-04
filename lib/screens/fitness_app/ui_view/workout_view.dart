@@ -48,7 +48,7 @@ class WorkoutView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       const Text(
-                        'Next workout',
+                        'Weather Forecast App',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: FitnessAppTheme.fontName,
@@ -61,7 +61,7 @@ class WorkoutView extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.only(top: 8.0),
                         child: Text(
-                          'Legs Toning and\nGlutes Workout at Home',
+                          'This app is a showcase about my Flutter skills',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: FitnessAppTheme.fontName,
@@ -90,7 +90,7 @@ class WorkoutView extends StatelessWidget {
                             const Padding(
                               padding: EdgeInsets.only(left: 4.0),
                               child: Text(
-                                '68 min',
+                                'Next task: Adding night mode',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: FitnessAppTheme.fontName,

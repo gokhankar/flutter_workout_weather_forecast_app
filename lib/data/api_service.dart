@@ -15,7 +15,7 @@ class ApiService {
         return _model;
       }
     } catch (e) {
-      print(e.toString());
+      print("from api service : ${e.toString()}");
       return null;
     }
   }
